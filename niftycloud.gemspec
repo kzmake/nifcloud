@@ -9,9 +9,9 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Kazuki Iwata"]
   spec.email         = ["kazu.0516.k0n0f@gmail.com"]
 
-  spec.summary       = %q{TODO: Write a short summary, because Rubygems requires one.}
-  spec.description   = %q{TODO: Write a longer description or delete this line.}
-  spec.homepage      = "TODO: Put your gem's website or public repo URL here."
+  spec.summary       = %q{Unofficial NIFTY Cloud SDK for Ruby}
+  spec.description   = %q{The Unofficial NIFTY Cloud SDK for Ruby}
+  spec.homepage      = "https://github.com/kzmake/niftycloud"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
   # to allow pushing to a single host or delete this section to allow pushing to any host.
@@ -32,4 +32,10 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "bundler", "~> 1.15"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
+
+  if RUBY_VERSION < '2.0'
+    spec.add_runtime_dependency 'httparty', '~> 0.13.0'
+  else
+    spec.add_runtime_dependency 'httparty'
+  end
 end
