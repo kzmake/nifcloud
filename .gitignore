@@ -10,3 +10,13 @@
 
 # rspec failure tracking
 .rspec_status
+
+.vscode/
+.DS_Store
+
+*.gem
+*.rbc
+*.swp
+.bundle
+.config
+.yardoc
