@@ -4,7 +4,7 @@ module Niftycloud
     DEFAULT_USER_AGENT = "Niftycloud Ruby Gem #{Niftycloud::VERSION}".freeze
     # @private
     attr_accessor(*VALID_OPTIONS_KEYS)
-    # @private
+
     alias_method :auth_token=, :private_token=
 
     def self.extended(base)
@@ -13,6 +13,12 @@ module Niftycloud
 
     def configure
       yield self
+    end
+
+    def options
+      VALID_OPTIONS_KEYS.inject({}) do |option, key|
+        option.merge!(key => send(key))
+      end
     end
 
     def reset

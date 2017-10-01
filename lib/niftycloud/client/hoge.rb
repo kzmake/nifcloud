@@ -5,7 +5,7 @@ class Niftycloud::Client
         get("/issues", query: options)
       else
         get("/projects/#{url_encode id}/issues", query: options)
-    end
+      end
     end
   end
 end
