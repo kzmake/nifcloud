@@ -30,7 +30,7 @@ module Niftycloud
   end
 
   def self.actions
-    hidden = /endpoint|private_token|auth_token|user_agent|sudo|get|post|put|\Adelete\z|validate|set_request_defaults|httparty/
+    hidden = /endpoint|secret_access_key|auth_token|user_agent|sudo|get|post|put|\Adelete\z|validate|set_request_defaults|httparty/
     (Niftycloud::Client.instance_methods - Object.methods).reject { |e| e[hidden] }
   end
 end

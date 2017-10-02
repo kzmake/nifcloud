@@ -8,7 +8,7 @@ module Niftycloud
     headers 'Accept' => 'application/json'
     parser proc { |body, _| parse(body) }
 
-    attr_accessor :private_token, :endpoint
+    attr_accessor :secret_access_key, :endpoint
 
     def self.parse(body)
       body = decode(body)
@@ -90,11 +90,11 @@ module Niftycloud
 
     def set_authorization_header(options)
       unless options[:unauthenticated]
-        raise Error::MissingCredentials.new("Please provide a private_token or auth_token for user") unless @private_token
-        if @private_token.length <= 20
-          options[:headers] = { 'PRIVATE-TOKEN' => @private_token }
+        raise Error::MissingCredentials.new("Please provide a secret_access_key or auth_token for user") unless @secret_access_key
+        if @secret_access_key.length <= 20
+          options[:headers] = { 'SECRET_ACCESS_KEY' => @secret_access_key }
         else
-          options[:headers] = { 'Authorization' => "Bearer #{@private_token}" }
+          options[:headers] = { 'Authorization' => "Bearer #{@secret_access_key}" }
         end
       end
     end

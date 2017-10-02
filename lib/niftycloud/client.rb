@@ -12,8 +12,8 @@ module Niftycloud
     def inspect
       inspected = super
 
-      if @private_token
-        inspected = inspected.sub! @private_token, only_show_last_four_chars(@private_token)
+      if @secret_access_key
+        inspected = inspected.sub! @secret_access_key, only_show_last_four_chars(@secret_access_key)
       end
 
       inspected
@@ -21,8 +21,8 @@ module Niftycloud
 
     private
 
-    def only_show_last_four_chars(token)
-      "#{'*'*(token.size - 4)}#{token[-4..-1]}"
+    def only_show_last_four_chars(key)
+      "#{'*'*(key.size - 4)}#{key[-4..-1]}"
     end
   end
 end
