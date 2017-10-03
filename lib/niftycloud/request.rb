@@ -14,9 +14,11 @@ module Niftycloud
       body = decode(body)
 
       if body.is_a? Hash
-        ObjectifiedHash.new body
+        p body
+        #ObjectifiedHash.new body
       elsif body.is_a? Array
-        PaginatedResponse.new(body.collect! { |e| ObjectifiedHash.new(e) })
+        p body
+        #PaginatedResponse.new(body.collect! { |e| ObjectifiedHash.new(e) })
       elsif body
         true
       elsif !body
@@ -29,6 +31,7 @@ module Niftycloud
     end
 
     def self.decode(response)
+      p response 
       JSON.load response
     rescue JSON::ParserError
       raise Error::Parsing.new "The response is not a valid JSON"
@@ -37,7 +40,7 @@ module Niftycloud
     def get(path, options={})
       set_httparty_config(options)
       set_authorization_header(options)
-      validate self.class.get(@endpoint + path, options)
+      validate self.class.get(@endpoint + path, options) 
     end
 
     def post(path, options={})

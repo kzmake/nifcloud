@@ -2,7 +2,7 @@ module Niftycloud
   class Client < API
     Dir[File.expand_path('../client/*.rb', __FILE__)].each { |f| require f }
     
-    include Hoge
+    include Instances
     include Issues
 
     def url_encode(s)
