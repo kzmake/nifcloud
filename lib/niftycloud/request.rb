@@ -11,16 +11,16 @@ module Niftycloud
     attr_accessor :secret_access_key, :endpoint
 
     def self.parse(body)
-      body = decode(body)
+      #body = decode(body)
 
       if body.is_a? Hash
-        p body
+        body
         #ObjectifiedHash.new body
       elsif body.is_a? Array
-        p body
+        body
         #PaginatedResponse.new(body.collect! { |e| ObjectifiedHash.new(e) })
       elsif body
-        true
+        body
       elsif !body
         false
       elsif body.nil?
