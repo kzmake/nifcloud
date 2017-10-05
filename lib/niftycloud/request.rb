@@ -1,4 +1,5 @@
 require 'httparty'
+require 'rexml/document'
 require 'json'
 
 module Niftycloud
@@ -11,14 +12,12 @@ module Niftycloud
     attr_accessor :secret_access_key, :endpoint
 
     def self.parse(body)
-      #body = decode(body)
+      body = REXML::Document.new(body).root.to_h["reservationSet"]
 
       if body.is_a? Hash
-        body
-        #ObjectifiedHash.new body
+        ObjectifiedHash.new body
       elsif body.is_a? Array
-        body
-        #PaginatedResponse.new(body.collect! { |e| ObjectifiedHash.new(e) })
+        PaginatedResponse.new(body.collect! { |e| ObjectifiedHash.new(e) })
       elsif body
         body
       elsif !body
@@ -106,5 +105,30 @@ module Niftycloud
       options.merge!(httparty) if httparty
     end
 
+  end
+end
+
+class REXML::Element
+  def to_h
+    hash = {}
+    if self.has_elements?
+      self.elements.each do |e|
+        if e.has_elements?
+          if hash[e.name].nil?
+            hash[e.name] = e.to_h
+          elsif hash[e.name].is_a?(Array)
+            hash[e.name].push( e.to_h )
+          else
+            hash[e.name] = [ hash[e.name] ]
+            hash[e.name].push( e.to_h )
+          end
+        elsif e.has_text?
+          hash[e.name] = e.text
+        end
+      end
+    else
+      hash[self.name] = self.text
+    end
+    hash
   end
 end
