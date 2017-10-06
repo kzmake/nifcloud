@@ -37,24 +37,28 @@ module Niftycloud
     end
 
     def get(path, options={})
+      set_signature(options)
       set_httparty_config(options)
       set_authorization_header(options)
       validate self.class.get(@endpoint + path, options) 
     end
 
     def post(path, options={})
+      set_signature(options)
       set_httparty_config(options)
       set_authorization_header(options)
       validate self.class.post(@endpoint + path, options)
     end
 
     def put(path, options={})
+      set_signature(options)
       set_httparty_config(options)
       set_authorization_header(options)
       validate self.class.put(@endpoint + path, options)
     end
 
     def delete(path, options={})
+      set_signature(options)
       set_httparty_config(options)
       set_authorization_header(options)
       validate self.class.delete(@endpoint + path, options)
@@ -89,6 +93,10 @@ module Niftycloud
     end
 
     private
+
+    def set_signature(options={})
+      options[:query][:Signature] = Signature.v0("#{@secret_access_key}", "#{options[:query][:Action]}#{options[:query][:Timestamp]}")
+    end
 
     def set_authorization_header(options)
       unless options[:unauthenticated]
