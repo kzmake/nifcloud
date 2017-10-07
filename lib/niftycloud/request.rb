@@ -9,7 +9,7 @@ module Niftycloud
     headers 'Accept' => 'application/json'
     parser proc { |body, _| parse(body) }
 
-    attr_accessor :secret_access_key, :endpoint
+    attr_accessor :secret_key, :access_key, :endpoint
 
     def self.parse(body)
       body = REXML::Document.new(body).root.to_h["reservationSet"]
@@ -37,30 +37,30 @@ module Niftycloud
     end
 
     def get(path, options={})
+      set_access_key(options)
       set_signature(options)
       set_httparty_config(options)
-      set_authorization_header(options)
       validate self.class.get(@endpoint + path, options) 
     end
 
     def post(path, options={})
+      set_access_key(options)
       set_signature(options)
       set_httparty_config(options)
-      set_authorization_header(options)
       validate self.class.post(@endpoint + path, options)
     end
 
     def put(path, options={})
+      set_access_key(options)
       set_signature(options)
       set_httparty_config(options)
-      set_authorization_header(options)
       validate self.class.put(@endpoint + path, options)
     end
 
     def delete(path, options={})
+      set_access_key(options)
       set_signature(options)
       set_httparty_config(options)
-      set_authorization_header(options)
       validate self.class.delete(@endpoint + path, options)
     end
 
@@ -93,20 +93,14 @@ module Niftycloud
     end
 
     private
-
-    def set_signature(options={})
-      options[:query][:Signature] = Signature.v0("#{@secret_access_key}", "#{options[:query][:Action]}#{options[:query][:Timestamp]}")
+    def set_access_key(options)
+      options[:query][:AccessKeyId] = access_key
     end
 
-    def set_authorization_header(options)
-      unless options[:unauthenticated]
-        raise Error::MissingCredentials.new("Please provide a secret_access_key or auth_token for user") unless @secret_access_key
-        if @secret_access_key.length <= 20
-          options[:headers] = { 'SECRET_ACCESS_KEY' => @secret_access_key }
-        else
-          options[:headers] = { 'Authorization' => "Bearer #{@secret_access_key}" }
-        end
-      end
+    def set_signature(options)
+      key = @secret_key
+      data = "#{options[:query][:Action]}#{options[:query][:Timestamp]}"
+      options[:query][:Signature] = Signature.v0(key, data)
     end
 
     def set_httparty_config(options)

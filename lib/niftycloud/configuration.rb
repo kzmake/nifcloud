@@ -1,11 +1,9 @@
 module Niftycloud
   module Configuration
-    VALID_OPTIONS_KEYS = [:endpoint, :secret_access_key, :user_agent, :sudo, :httparty].freeze
+    VALID_OPTIONS_KEYS = [:endpoint, :secret_key, :access_key, :user_agent, :sudo, :httparty].freeze
     DEFAULT_USER_AGENT = "Niftycloud Ruby Gem #{Niftycloud::VERSION}".freeze
-    # @private
-    attr_accessor(*VALID_OPTIONS_KEYS)
 
-    alias_method :auth_token=, :secret_access_key=
+    attr_accessor(*VALID_OPTIONS_KEYS)
 
     def self.extended(base)
       base.reset
@@ -22,11 +20,12 @@ module Niftycloud
     end
 
     def reset
-      self.endpoint           = ENV['NIFTYCLOUD_API_ENDPOINT']
-      self.secret_access_key  = ENV['NIFTYCLOUD_API_SECRET_ACCESS_KEY'] || ENV['NIFTYCLOUD_API_AUTH_TOKEN']
-      self.httparty           = nil
-      self.sudo               = nil
-      self.user_agent         = DEFAULT_USER_AGENT
+      self.endpoint   = ENV['NIFTYCLOUD_API_ENDPOINT']
+      self.secret_key = ENV['NIFTYCLOUD_API_SECRET_KEY']
+      self.access_key = ENV['NIFTYCLOUD_API_ACCESS_KEY']
+      self.httparty   = nil
+      self.sudo       = nil
+      self.user_agent = DEFAULT_USER_AGENT
     end
   end
 end

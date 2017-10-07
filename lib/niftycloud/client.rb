@@ -12,8 +12,8 @@ module Niftycloud
     def inspect
       inspected = super
 
-      if @secret_access_key
-        inspected = inspected.sub! @secret_access_key, only_show_last_four_chars(@secret_access_key)
+      if @secret_key
+        inspected = inspected.sub! @secret_key, only_show_last_four_chars(@secret_key)
       end
 
       inspected
