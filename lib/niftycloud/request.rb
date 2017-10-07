@@ -6,12 +6,11 @@ module Niftycloud
     include HTTParty
     format :json
     headers 'Accept' => 'application/json'
-    parser proc { |body, _| parse(body) }
+    parser proc {|body, _| parse(body)}
 
     attr_accessor :secret_key, :access_key, :endpoint
 
     def self.parse(body)
-      p body
       if body.is_a? Hash
         #ObjectifiedHash.new body
         body
@@ -34,7 +33,7 @@ module Niftycloud
       set_access_key(options)
       set_signature(options)
       set_httparty_config(options)
-      validate self.class.get(@endpoint + path, options) 
+      validate self.class.get(@endpoint + path, options)
     end
 
     def post(path, options={})
@@ -62,18 +61,29 @@ module Niftycloud
     end
 
     def validate(response)
-      error_klass = case response.code
-      when 400 then Error::BadRequest
-      when 401 then Error::Unauthorized
-      when 403 then Error::Forbidden
-      when 404 then Error::NotFound
-      when 405 then Error::MethodNotAllowed
-      when 409 then Error::Conflict
-      when 422 then Error::Unprocessable
-      when 500 then Error::InternalServerError
-      when 502 then Error::BadGateway
-      when 503 then Error::ServiceUnavailable
-      end
+      error_klass =
+          case response.code
+            when 400 then
+              Error::BadRequest
+            when 401 then
+              Error::Unauthorized
+            when 403 then
+              Error::Forbidden
+            when 404 then
+              Error::NotFound
+            when 405 then
+              Error::MethodNotAllowed
+            when 409 then
+              Error::Conflict
+            when 422 then
+              Error::Unprocessable
+            when 500 then
+              Error::InternalServerError
+            when 502 then
+              Error::BadGateway
+            when 503 then
+              Error::ServiceUnavailable
+          end
 
       fail error_klass.new(response) if error_klass
 
