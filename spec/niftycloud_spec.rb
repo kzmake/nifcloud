@@ -9,24 +9,14 @@ describe Niftycloud do
     end
 
     it "should not override each other" do
-      client1 = Niftycloud.client(endpoint: 'https://api1.example.com', private_token: '001')
-      client2 = Niftycloud.client(endpoint: 'https://api2.example.com', private_token: '002')
+      client1 = Niftycloud.client(endpoint: 'https://api1.example.com', secret_key: '001')
+      client2 = Niftycloud.client(endpoint: 'https://api2.example.com', secret_key: '002')
       expect(client1.endpoint).to eq('https://api1.example.com')
       expect(client2.endpoint).to eq('https://api2.example.com')
-      expect(client1.private_token).to eq('001')
-      expect(client2.private_token).to eq('002')
+      expect(client1.secret_key).to eq('001')
+      expect(client2.secret_key).to eq('002')
     end
   end
-
-  describe ".actions" do
-    it "should return an array of client methods" do
-      actions = Niftycloud.actions
-      expect(actions).to be_an Array
-      expect(actions.first).to be_a Symbol
-      expect(actions.sort.first).to eq(:close_issue)
-    end
-  end
-
 
   describe ".endpoint =" do
     it "should set endpoint" do
@@ -35,10 +25,10 @@ describe Niftycloud do
     end
   end
 
-  describe ".private_token =" do
-    it "should set private_token" do
-      Niftycloud.private_token = 'secret'
-      expect(Niftycloud.private_token).to eq('secret')
+  describe ".secret_key =" do
+    it "should set secret_key" do
+      Niftycloud.secret_key = 'secret'
+      expect(Niftycloud.secret_key).to eq('secret')
     end
   end
   
