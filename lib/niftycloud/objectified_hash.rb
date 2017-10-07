@@ -12,6 +12,7 @@ module Niftycloud
     def to_hash
       @hash
     end
+
     alias_method :to_h, :to_hash
 
     def inspect

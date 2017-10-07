@@ -30,6 +30,7 @@ module Niftycloud
     end
 
     def get(path, options={})
+      set_timestamp(options)
       set_access_key(options)
       set_signature(options)
       set_httparty_config(options)
@@ -37,6 +38,7 @@ module Niftycloud
     end
 
     def post(path, options={})
+      set_timestamp(options)
       set_access_key(options)
       set_signature(options)
       set_httparty_config(options)
@@ -44,6 +46,7 @@ module Niftycloud
     end
 
     def put(path, options={})
+      set_timestamp(options)
       set_access_key(options)
       set_signature(options)
       set_httparty_config(options)
@@ -51,6 +54,7 @@ module Niftycloud
     end
 
     def delete(path, options={})
+      set_timestamp(options)
       set_access_key(options)
       set_signature(options)
       set_httparty_config(options)
@@ -86,6 +90,10 @@ module Niftycloud
     end
 
     private
+    def set_timestamp(options)
+      options[:query][:Timestamp] = Time.now.
+    end
+
     def set_access_key(options)
       options[:query][:AccessKeyId] = access_key
     end
@@ -94,6 +102,7 @@ module Niftycloud
       key = @secret_key
       data = "#{options[:query][:Action]}#{options[:query][:Timestamp]}"
       options[:query][:Signature] = Signature.v0(key, data)
+      options[:query][:SignatureVersion] = '0'
     end
 
     def set_httparty_config(options)

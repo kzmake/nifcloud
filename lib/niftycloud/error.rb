@@ -1,13 +1,16 @@
 module Niftycloud
   module Error
     # Custom error class for rescuing from all errors.
-    class Error < StandardError; end
+    class Error < StandardError;
+    end
 
     # Raised when API endpoint credentials not configured.
-    class MissingCredentials < Error; end
+    class MissingCredentials < Error;
+    end
 
     # Raised when impossible to parse response body.
-    class Parsing < Error; end
+    class Parsing < Error;
+    end
 
     # Custom error class for rescuing from HTTP response errors.
     class ResponseError < Error
@@ -41,46 +44,56 @@ module Niftycloud
       # Handle error response message in case of nested hashes
       def handle_message(message)
         case message
-        #when Niftycloud::ObjectifiedHash
-        #  message.to_h.sort.map do |key, val|
-        #    "'#{key}' #{(val.is_a?(Hash) ? val.sort.map { |k, v| "(#{k}: #{v.join(' ')})" } : val).join(' ')}"
-        #  end.join(', ')
-        when Array
-          message.join(' ')
-        else
-          message
+          #when Niftycloud::ObjectifiedHash
+          #  message.to_h.sort.map do |key, val|
+          #    "'#{key}' #{(val.is_a?(Hash) ? val.sort.map { |k, v| "(#{k}: #{v.join(' ')})" } : val).join(' ')}"
+          #  end.join(', ')
+          when Array
+            message.join(' ')
+          else
+            message
         end
       end
     end
 
     # Raised when API endpoint returns the HTTP status code 400.
-    class BadRequest < ResponseError; end
+    class BadRequest < ResponseError;
+    end
 
     # Raised when API endpoint returns the HTTP status code 401.
-    class Unauthorized < ResponseError; end
+    class Unauthorized < ResponseError;
+    end
 
     # Raised when API endpoint returns the HTTP status code 403.
-    class Forbidden < ResponseError; end
+    class Forbidden < ResponseError;
+    end
 
     # Raised when API endpoint returns the HTTP status code 404.
-    class NotFound < ResponseError; end
+    class NotFound < ResponseError;
+    end
 
     # Raised when API endpoint returns the HTTP status code 405.
-    class MethodNotAllowed < ResponseError; end
+    class MethodNotAllowed < ResponseError;
+    end
 
     # Raised when API endpoint returns the HTTP status code 409.
-    class Conflict < ResponseError; end
+    class Conflict < ResponseError;
+    end
 
     # Raised when API endpoint returns the HTTP status code 422.
-    class Unprocessable < ResponseError; end
+    class Unprocessable < ResponseError;
+    end
 
     # Raised when API endpoint returns the HTTP status code 500.
-    class InternalServerError < ResponseError; end
+    class InternalServerError < ResponseError;
+    end
 
     # Raised when API endpoint returns the HTTP status code 502.
-    class BadGateway < ResponseError; end
+    class BadGateway < ResponseError;
+    end
 
     # Raised when API endpoint returns the HTTP status code 503.
-    class ServiceUnavailable < ResponseError; end
+    class ServiceUnavailable < ResponseError;
+    end
   end
 end

@@ -20,11 +20,11 @@ module Niftycloud
     end
 
     def reset
-      self.endpoint   = ENV['NIFTYCLOUD_API_ENDPOINT']
+      self.endpoint = ENV['NIFTYCLOUD_API_ENDPOINT']
       self.secret_key = ENV['NIFTYCLOUD_API_SECRET_KEY']
       self.access_key = ENV['NIFTYCLOUD_API_ACCESS_KEY']
-      self.httparty   = nil
-      self.sudo       = nil
+      self.httparty = nil
+      self.sudo = nil
       self.user_agent = DEFAULT_USER_AGENT
     end
   end

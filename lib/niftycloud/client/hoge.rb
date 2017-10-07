@@ -1,5 +1,5 @@
 class Niftycloud::Client
-  module Instances 
+  module Instances
     def Instances(options={})
       get("/", query: options)
     end

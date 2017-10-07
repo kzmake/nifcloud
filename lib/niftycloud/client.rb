@@ -1,7 +1,7 @@
 module Niftycloud
   class Client < API
-    Dir[File.expand_path('../client/*.rb', __FILE__)].each { |f| require f }
-    
+    Dir[File.expand_path('../client/*.rb', __FILE__)].each {|f| require f}
+
     include Instances
     include Issues
 

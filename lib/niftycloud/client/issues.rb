@@ -14,7 +14,7 @@ class Niftycloud::Client
     end
 
     def create_issue(project, title, options={})
-      body = { title: title }.merge(options)
+      body = {title: title}.merge(options)
       post("/projects/#{url_encode project}/issues", body: body)
     end
 
@@ -23,11 +23,11 @@ class Niftycloud::Client
     end
 
     def close_issue(project, id)
-      put("/projects/#{url_encode project}/issues/#{id}", body: { state_event: 'close' })
+      put("/projects/#{url_encode project}/issues/#{id}", body: {state_event: 'close'})
     end
 
     def reopen_issue(project, id)
-      put("/projects/#{url_encode project}/issues/#{id}", body: { state_event: 'reopen' })
+      put("/projects/#{url_encode project}/issues/#{id}", body: {state_event: 'reopen'})
     end
 
     def subscribe_to_issue(project, id)

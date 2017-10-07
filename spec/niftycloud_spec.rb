@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Niftycloud do
-  after { Niftycloud.reset }
+  after {Niftycloud.reset}
 
   describe ".client" do
     it "should be a Niftycloud::Client" do
@@ -31,7 +31,7 @@ describe Niftycloud do
       expect(Niftycloud.secret_key).to eq('secret')
     end
   end
-  
+
   describe ".sudo =" do
     it "should set sudo" do
       Niftycloud.sudo = 'user'
@@ -70,7 +70,7 @@ describe Niftycloud do
 
       Niftycloud.http_proxy('fazbearentertainment.com', 1987, 'ffazbear', 'itsme')
       expect(request).to have_received(:http_proxy).
-        with('fazbearentertainment.com', 1987, 'ffazbear', 'itsme')
+          with('fazbearentertainment.com', 1987, 'ffazbear', 'itsme')
     end
   end
 end
