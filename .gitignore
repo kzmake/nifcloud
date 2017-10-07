@@ -20,3 +20,5 @@
 .bundle
 .config
 .yardoc
+
+\.idea/
