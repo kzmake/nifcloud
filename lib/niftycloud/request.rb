@@ -1,5 +1,4 @@
 require 'httparty'
-require 'rexml/document'
 require 'json'
 
 module Niftycloud
@@ -12,12 +11,13 @@ module Niftycloud
     attr_accessor :secret_key, :access_key, :endpoint
 
     def self.parse(body)
-      body = REXML::Document.new(body).root.to_h["reservationSet"]
-
+      p body
       if body.is_a? Hash
-        ObjectifiedHash.new body
+        #ObjectifiedHash.new body
+        body
       elsif body.is_a? Array
-        PaginatedResponse.new(body.collect! { |e| ObjectifiedHash.new(e) })
+        #PaginatedResponse.new(body.collect! { |e| ObjectifiedHash.new(e) })
+        body
       elsif body
         body
       elsif !body
@@ -27,13 +27,6 @@ module Niftycloud
       else
         raise Error::Parsing.new "Couldn't parse a response body"
       end
-    end
-
-    def self.decode(response)
-      p response 
-      JSON.load response
-    rescue JSON::ParserError
-      raise Error::Parsing.new "The response is not a valid JSON"
     end
 
     def get(path, options={})
@@ -107,30 +100,5 @@ module Niftycloud
       options.merge!(httparty) if httparty
     end
 
-  end
-end
-
-class REXML::Element
-  def to_h
-    hash = {}
-    if self.has_elements?
-      self.elements.each do |e|
-        if e.has_elements?
-          if hash[e.name].nil?
-            hash[e.name] = e.to_h
-          elsif hash[e.name].is_a?(Array)
-            hash[e.name].push( e.to_h )
-          else
-            hash[e.name] = [ hash[e.name] ]
-            hash[e.name].push( e.to_h )
-          end
-        elsif e.has_text?
-          hash[e.name] = e.text
-        end
-      end
-    else
-      hash[self.name] = self.text
-    end
-    hash
   end
 end
