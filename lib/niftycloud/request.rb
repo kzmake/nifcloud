@@ -91,7 +91,7 @@ module Niftycloud
 
     private
     def set_timestamp(options)
-      options[:query][:Timestamp] = Time.now.
+      options[:query][:Timestamp] = Time.now.strftime("%Y%m%dT%H%M%SZ")
     end
 
     def set_access_key(options)
