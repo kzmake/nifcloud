@@ -1,30 +1,29 @@
 module Niftycloud
-  class ObjectifiedHash
-    def initialize(hash)
-      @hash = hash
-      @data = hash.inject({}) do |data, (key, value)|
-        value = ObjectifiedHash.new(value) if value.is_a? Hash
-        data[key.to_s] = value
-        data
+  module ObjectifiedHash
+    def method_missing(meth, *args, &block)
+      if args.size == 0
+        obj = self[meth.to_s] || self[meth.to_sym]
+        if obj.is_a?(Hash) and obj.has_key?('item')
+          obj['item'].each do |i|
+            i.extend ObjectifiedHash
+          end
+          obj['item']
+        else
+          obj.extend ObjectifiedHash
+        end
       end
     end
 
-    def to_hash
-      @hash
+    def type
+      self['type']
     end
 
-    alias_method :to_h, :to_hash
-
-    def inspect
-      "#<#{self.class}:#{object_id} {hash: #{@hash.inspect}}"
+    def has?(key)
+      self[key] && !self[key].to_s.empty?
     end
 
-    def method_missing(key)
-      @data.key?(key.to_s) ? @data[key.to_s] : nil
-    end
-
-    def respond_to_missing?(method_name, include_private = false)
-      @hash.keys.map(&:to_sym).include?(method_name.to_sym) || super
+    def does_not_have?(key)
+      self[key].nil? || self[key].to_s.empty?
     end
   end
 end
