@@ -5,27 +5,38 @@ module Niftycloud
   class Request
     attr_accessor :secret_key, :access_key, :endpoint
 
+    def initialize(options={})
+      @client = HTTPClient.new default_header: {"User-Agent" => @user_agent}
+      @client.debug_dev = $stderr if @debug
+    end
+
     def get(path, options={})
       set_query(options)
-      validate create_client.get(@endpoint + path, options)
+      validate @client.get(@endpoint + path, options)
     end
 
     def post(path, options={})
       set_query(options)
-      validate create_client.post(@endpoint + path, options)
+      validate @client.post(@endpoint + path, options)
     end
 
     def put(path, options={})
       set_query(options)
-      validate create_client.put(@endpoint + path, options)
+      validate @client.put(@endpoint + path, options)
     end
 
     def delete(path, options={})
       set_query(options)
-      validate create_client.delete(@endpoint + path, options)
+      validate @client.delete(@endpoint + path, options)
+    end
+
+    def self.set_proxy_config(address=nil, port=nil, username=nil, password=nil)
+      @client.proxy = "http://#{address}:#{port}"
+      @client.set_proxy_auth(username, password) if username
     end
 
     private
+
     def parse(xml)
       options = {'forcearray' => ['item', 'member'], 'suppressempty' => nil, 'keeproot' => false}
       body = XmlSimple.xml_in(xml, options)
@@ -41,13 +52,6 @@ module Niftycloud
       else
         raise Error::Parsing.new "Couldn't parse a response body"
       end
-    end
-
-    def create_client
-      client = HTTPClient.new default_header: {"User-Agent" => @user_agent}
-      client.debug_dev = $stderr if @debug
-
-      client
     end
 
     def validate(response)
@@ -84,10 +88,6 @@ module Niftycloud
       set_timestamp(options)
       set_access_key(options)
       set_signature(options)
-    end
-
-    def set_header(options={})
-      options.merge!(header: {'User-Agent' => self.user_agent})
     end
 
     def set_timestamp(options)

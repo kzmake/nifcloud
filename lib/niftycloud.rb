@@ -24,11 +24,6 @@ module Niftycloud
   end
 
   def self.http_proxy(address=nil, port=nil, username=nil, password=nil)
-    Niftycloud::Request.http_proxy(address, port, username, password)
-  end
-
-  def self.actions
-    hidden = /endpoint|secret_access_key|auth_token|user_agent|sudo|get|post|put|\Adelete\z|validate|set_request_defaults|httparty/
-    (Niftycloud::Client.instance_methods - Object.methods).reject {|e| e[hidden]}
+    Niftycloud::Request.set_proxy_config(address, port, username, password)
   end
 end

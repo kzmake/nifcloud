@@ -32,13 +32,6 @@ describe Niftycloud do
     end
   end
 
-  describe ".sudo =" do
-    it "should set sudo" do
-      Niftycloud.sudo = 'user'
-      expect(Niftycloud.sudo).to eq('user')
-    end
-  end
-
   describe ".user_agent" do
     it "should return default user_agent" do
       expect(Niftycloud.user_agent).to eq(Niftycloud::Configuration::DEFAULT_USER_AGENT)
@@ -68,9 +61,9 @@ describe Niftycloud do
       Niftycloud.endpoint = 'https://api.example.com'
       request = class_spy(Niftycloud::Request).as_stubbed_const
 
-      Niftycloud.http_proxy('fazbearentertainment.com', 1987, 'ffazbear', 'itsme')
-      expect(request).to have_received(:http_proxy).
-          with('fazbearentertainment.com', 1987, 'ffazbear', 'itsme')
+      Niftycloud.http_proxy('hogefugapiyo.com', 8080, 'hoge', 'fuga')
+      expect(request).to have_received(:set_proxy_config).
+          with('hogefugapiyo.com', 8080, 'hoge', 'fuga')
     end
   end
 end
