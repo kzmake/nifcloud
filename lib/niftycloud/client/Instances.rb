@@ -1,6 +1,6 @@
 class Niftycloud::Client
   module Instances
-    def Instances(options={})
+    def DescribeInstances(options={})
       options[:Action] = 'DescribeInstances'
       get('/', query: options)
     end
