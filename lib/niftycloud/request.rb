@@ -1,5 +1,6 @@
 require 'httparty'
 require 'json'
+require 'xmlsimple'
 
 module Niftycloud
   class Request
@@ -10,13 +11,15 @@ module Niftycloud
 
     attr_accessor :secret_key, :access_key, :endpoint
 
-    def self.parse(body)
+    def self.parse(xml)
+      options = {'forcearray' => ['item', 'member'], 'suppressempty' => nil, 'keeproot' => false}
+      body = XmlSimple.xml_in(xml, options)
+
       if body.is_a? Hash
-        #ObjectifiedHash.new body
-        body
+        body.extend ObjectifiedHash
+
       elsif body.is_a? Array
-        #PaginatedResponse.new(body.collect! { |e| ObjectifiedHash.new(e) })
-        body
+        PaginatedResponse.new(body.collect! {|e| ObjectifiedHash.new(e)})
       elsif body
         body
       elsif !body
@@ -101,7 +104,7 @@ module Niftycloud
 
     private
     def set_timestamp(options)
-      options[:query][:Timestamp] = Time.now.strftime("%Y%m%dT%H%M%SZ")
+      options[:query][:Timestamp] = Time.now.strftime("%Y%m%dT%H:%M:%SZ")
     end
 
     def set_access_key(options)
