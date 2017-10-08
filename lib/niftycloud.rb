@@ -1,7 +1,5 @@
 require 'niftycloud/version'
-require 'niftycloud/page_links'
 require 'niftycloud/objectified_hash'
-require 'niftycloud/paginated_response'
 require 'niftycloud/error'
 require 'niftycloud/signature'
 require 'niftycloud/configuration'
