@@ -23,7 +23,7 @@ module Niftycloud
       #
       # @return [Integer]
       def response_status
-        @response.code
+        (@response != false) ? @response.Code : "?"
       end
 
       private
@@ -32,13 +32,10 @@ module Niftycloud
       #
       # @return [String]
       def build_error_message
-        parsed_response = @response.parsed_response
-        message = parsed_response.message || parsed_response.error if parsed_response != false
-        message = "false" if parsed_response == false
+        message = @response.Message if @response != false
+        message = "false" if @response == false
 
-        "Server responded with code #{@response.code}, message: " \
-        "#{handle_message(message)}. " \
-        "Request URI: #{@response.request.base_uri}#{@response.request.path}"
+        "Server responded with code #{@response.Code}, \n message: #{handle_message(message)}. \n\n"
       end
 
       # Handle error response message in case of nested hashes

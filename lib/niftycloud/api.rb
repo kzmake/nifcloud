@@ -7,7 +7,6 @@ module Niftycloud
       (Configuration::VALID_OPTIONS_KEYS + [:secret_key]).each do |key|
         send("#{key}=", options[key]) if options[key]
       end
-      set_request_defaults(@sudo)
     end
   end
 end

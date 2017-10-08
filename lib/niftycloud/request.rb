@@ -1,27 +1,39 @@
-require 'httparty'
-require 'json'
+require 'httpclient'
 require 'xmlsimple'
 
 module Niftycloud
   class Request
-    include HTTParty
-    format :json
-    headers 'Accept' => 'application/json'
-    parser proc {|body, _| parse(body)}
-
     attr_accessor :secret_key, :access_key, :endpoint
 
-    def self.parse(xml)
+    def get(path, options={})
+      set_query(options)
+      validate create_client.get(@endpoint + path, options)
+    end
+
+    def post(path, options={})
+      set_query(options)
+      validate create_client.post(@endpoint + path, options)
+    end
+
+    def put(path, options={})
+      set_query(options)
+      validate create_client.put(@endpoint + path, options)
+    end
+
+    def delete(path, options={})
+      set_query(options)
+      validate create_client.delete(@endpoint + path, options)
+    end
+
+    private
+    def parse(xml)
       options = {'forcearray' => ['item', 'member'], 'suppressempty' => nil, 'keeproot' => false}
       body = XmlSimple.xml_in(xml, options)
 
       if body.is_a? Hash
         body.extend ObjectifiedHash
-
-      elsif body.is_a? Array
-        PaginatedResponse.new(body.collect! {|e| ObjectifiedHash.new(e)})
       elsif body
-        body
+        true
       elsif !body
         false
       elsif body.nil?
@@ -31,36 +43,11 @@ module Niftycloud
       end
     end
 
-    def get(path, options={})
-      set_timestamp(options)
-      set_access_key(options)
-      set_signature(options)
-      set_httparty_config(options)
-      validate self.class.get(@endpoint + path, options)
-    end
+    def create_client
+      client = HTTPClient.new default_header: {"User-Agent" => @user_agent}
+      client.debug_dev = $stderr if @debug
 
-    def post(path, options={})
-      set_timestamp(options)
-      set_access_key(options)
-      set_signature(options)
-      set_httparty_config(options)
-      validate self.class.post(@endpoint + path, options)
-    end
-
-    def put(path, options={})
-      set_timestamp(options)
-      set_access_key(options)
-      set_signature(options)
-      set_httparty_config(options)
-      validate self.class.put(@endpoint + path, options)
-    end
-
-    def delete(path, options={})
-      set_timestamp(options)
-      set_access_key(options)
-      set_signature(options)
-      set_httparty_config(options)
-      validate self.class.delete(@endpoint + path, options)
+      client
     end
 
     def validate(response)
@@ -88,21 +75,21 @@ module Niftycloud
               Error::ServiceUnavailable
           end
 
-      fail error_klass.new(response) if error_klass
-
-      parsed = response.parsed_response
-      parsed.client = self if parsed.respond_to?(:client=)
-      parsed.parse_headers!(response.headers) if parsed.respond_to?(:parse_headers!)
-      parsed
+      response_obj = parse response.body
+      fail error_klass.new(response_obj.Errors.Error) if error_klass
+      response_obj
     end
 
-    def set_request_defaults(sudo=nil)
-      self.class.default_params sudo: sudo
-      raise Error::MissingCredentials.new("Please set an endpoint to API") unless @endpoint
-      self.class.default_params.delete(:sudo) if sudo.nil?
+    def set_query(options={})
+      set_timestamp(options)
+      set_access_key(options)
+      set_signature(options)
     end
 
-    private
+    def set_header(options={})
+      options.merge!(header: {'User-Agent' => self.user_agent})
+    end
+
     def set_timestamp(options)
       options[:query][:Timestamp] = Time.now.strftime("%Y%m%dT%H:%M:%SZ")
     end
@@ -117,10 +104,5 @@ module Niftycloud
       options[:query][:Signature] = Signature.v0(key, data)
       options[:query][:SignatureVersion] = '0'
     end
-
-    def set_httparty_config(options)
-      options.merge!(httparty) if httparty
-    end
-
   end
 end
