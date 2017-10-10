@@ -9,5 +9,10 @@ class Niftycloud::Client
       options[:Action] = 'DescribeInstanceAttribute'
       get('/', query: options)
     end
+
+    def ModifyInstanceAttribute(options={})
+      options[:Action] = 'ModifyInstanceAttribute'
+      get('/', query: options)
+    end
   end
 end
