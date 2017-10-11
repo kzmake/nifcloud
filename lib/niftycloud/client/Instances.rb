@@ -14,5 +14,10 @@ class Niftycloud::Client
       options[:Action] = 'ModifyInstanceAttribute'
       get('/', query: options)
     end
+
+    def RebootInstances(options={})
+      options[:Action] = 'RebootInstances'
+      get('/', query: options)
+    end
   end
 end
