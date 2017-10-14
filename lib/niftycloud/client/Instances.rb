@@ -24,5 +24,10 @@ class Niftycloud::Client
       options[:Action] = 'RunInstances'
       get('/', query: options)
     end
+
+    def StartInstances(options={})
+      options[:Action] = 'StartInstances'
+      get('/', query: options)
+    end
   end
 end
