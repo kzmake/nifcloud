@@ -4,6 +4,7 @@ describe Nifcloud::Client do
   describe ".instances" do
     context "Action: DescribeInstances" do
       before do
+        allow(Time).to receive_message_chain(:now).and_return(Time.at(0))
         stub_get({Action: 'DescribeInstances'})
         @instances = Nifcloud.DescribeInstances
       end
@@ -20,6 +21,7 @@ describe Nifcloud::Client do
 
     context "Action: DescribeInstanceAttribute" do
       before do
+        allow(Time).to receive_message_chain(:now).and_return(Time.at(0))
         stub_get({Action: 'DescribeInstanceAttribute', InstanceId: 'test'})
         @instance = Nifcloud.DescribeInstanceAttribute(InstanceId: 'test')
       end
