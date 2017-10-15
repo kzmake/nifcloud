@@ -1,4 +1,4 @@
-class Niftycloud::Client
+class Nifcloud::Client
   module Instances
     def DescribeInstances(options={})
       options[:Action] = 'DescribeInstances'

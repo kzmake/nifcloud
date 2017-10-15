@@ -1,4 +1,4 @@
-module Niftycloud
+module Nifcloud
   module ObjectifiedHash
     def method_missing(meth, *args, &block)
       if args.size == 0

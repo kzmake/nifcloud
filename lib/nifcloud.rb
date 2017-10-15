@@ -1,17 +1,17 @@
-require 'niftycloud/version'
-require 'niftycloud/objectified_hash'
-require 'niftycloud/error'
-require 'niftycloud/signature'
-require 'niftycloud/configuration'
-require 'niftycloud/request'
-require 'niftycloud/api'
-require 'niftycloud/client'
+require 'nifcloud/version'
+require 'nifcloud/objectified_hash'
+require 'nifcloud/error'
+require 'nifcloud/signature'
+require 'nifcloud/configuration'
+require 'nifcloud/request'
+require 'nifcloud/api'
+require 'nifcloud/client'
 
-module Niftycloud
+module Nifcloud
   extend Configuration
 
   def self.client(options={})
-    Niftycloud::Client.new(options)
+    Nifcloud::Client.new(options)
   end
 
   def self.method_missing(method, *args, &block)
@@ -24,6 +24,6 @@ module Niftycloud
   end
 
   def self.http_proxy(address=nil, port=nil, username=nil, password=nil)
-    Niftycloud::Request.set_proxy_config(address, port, username, password)
+    Nifcloud::Request.set_proxy_config(address, port, username, password)
   end
 end

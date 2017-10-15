@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe Niftycloud::Client do
+describe Nifcloud::Client do
   describe ".instances" do
     context "Action: DescribeInstances" do
       before do
         stub_get("/", "DescribeInstances", "instances")
-        @instances = Niftycloud.DescribeInstances
+        @instances = Nifcloud.DescribeInstances
       end
 
       it "should get the correct resource" do
@@ -13,7 +13,7 @@ describe Niftycloud::Client do
       end
 
       it "should return a response of instances" do
-        expect(@instances).to be_a Niftycloud::ObjectifiedHash
+        expect(@instances).to be_a Nifcloud::ObjectifiedHash
         expect(@instances.reservationSet[0].instancesSet[0].instanceId).to eq("test")
       end
     end

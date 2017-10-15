@@ -1,17 +1,17 @@
 # coding: utf-8
 lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "niftycloud/version"
+require "nifcloud/version"
 
 Gem::Specification.new do |spec|
-  spec.name = "niftycloud"
-  spec.version = Niftycloud::VERSION
+  spec.name = "nifcloud"
+  spec.version = Nifcloud::VERSION
   spec.authors = ["Kazuki Iwata"]
   spec.email = ["kazu.0516.k0n0f@gmail.com"]
 
-  spec.summary = %q{Unofficial NIFTY Cloud SDK for Ruby}
-  spec.description = %q{The Unofficial NIFTY Cloud SDK for Ruby}
-  spec.homepage = "https://github.com/kzmake/niftycloud"
+  spec.summary = %q{Unofficial NIFCLOUD SDK for Ruby}
+  spec.description = %q{The Unofficial NIFCLOUD SDK for Ruby}
+  spec.homepage = "https://github.com/kzmake/nifcloud"
 
   spec.files = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
