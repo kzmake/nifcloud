@@ -1,15 +1,15 @@
-# Unofficial NIFTY Cloud SDK for Ruby
+# Unofficial NIF Cloud SDK for Ruby
 
 ## 概要
-ニフティクラウド(IaaS)から提供されているAPIを利用し、サーバー作成等の操作を可能にするSDKです。
+ニフクラ(IaaS)から提供されているAPIを利用し、サーバー作成等の操作を可能にするSDKです。
 
 ## インストール
 ```
-gem install niftycloud
+gem install nifcloud
 ```
 
 ## 使い方
 ```
-$ export NIFTYCLOUD_ACCESS_KEY_ID=XXXXXXXXXXXXXXXXXX
-$ export NIFTYCLOUD_SECRET_ACCESS_KEY=YYYYYYYYYYYYYYYYYYY
+$ export NIFCLOUD_ACCESS_KEY_ID=XXXXXXXXXXXXXXXXXX
+$ export NIFCLOUD_SECRET_ACCESS_KEY=YYYYYYYYYYYYYYYYYYY
 ```
