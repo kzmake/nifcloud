@@ -24,6 +24,6 @@ $ bundle exec rake
 
 Please file a ticket at the project web site.
 
-1. find a similar ticket from https://github.com/kzmeke/nifcloud/issues
+1. find a similar ticket from https://github.com/kzmake/nifcloud/issues
 1. create a new ticket by clicking 'Create Issue' button.
 1. you can use github features such as pull-request if you like.
