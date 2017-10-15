@@ -90,19 +90,25 @@ module Nifcloud
       set_signature(options)
     end
 
-    def set_timestamp(options)
-      options[:query][:Timestamp] = Time.now.strftime("%Y%m%dT%H:%M:%SZ")
+    def set_timestamp(options={})
+      options[:query].merge!({
+                                 Timestamp: Time.now.strftime("%Y%m%dT%H:%M:%SZ"),
+                             })
     end
 
-    def set_access_key(options)
-      options[:query][:AccessKeyId] = access_key
+    def set_access_key(options={})
+      options[:query].merge!({
+                                 AccessKeyId: @access_key,
+                             })
     end
 
-    def set_signature(options)
+    def set_signature(options={})
       key = @secret_key
       data = "#{options[:query][:Action]}#{options[:query][:Timestamp]}"
-      options[:query][:Signature] = Signature.v0(key, data)
-      options[:query][:SignatureVersion] = '0'
+      options[:query].merge!({
+                                 Signature: Signature.v0(key, data),
+                                 SignatureVersion: '0',
+                             })
     end
   end
 end
