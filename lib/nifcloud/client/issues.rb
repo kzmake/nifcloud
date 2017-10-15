@@ -1,4 +1,4 @@
-class Niftycloud::Client
+class Nifcloud::Client
   module Issues
 
     def issues(project=nil, options={})

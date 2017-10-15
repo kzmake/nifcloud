@@ -1,7 +1,7 @@
-module Niftycloud
+module Nifcloud
   module Configuration
     VALID_OPTIONS_KEYS = [:endpoint, :secret_key, :access_key, :user_agent, :debug].freeze
-    DEFAULT_USER_AGENT = "Niftycloud Ruby Gem #{Niftycloud::VERSION}".freeze
+    DEFAULT_USER_AGENT = "Nifcloud Ruby Gem #{Nifcloud::VERSION}".freeze
 
     attr_accessor(*VALID_OPTIONS_KEYS)
 
@@ -20,9 +20,9 @@ module Niftycloud
     end
 
     def reset
-      self.endpoint = ENV['NIFTYCLOUD_API_ENDPOINT']
-      self.secret_key = ENV['NIFTYCLOUD_API_SECRET_KEY']
-      self.access_key = ENV['NIFTYCLOUD_API_ACCESS_KEY']
+      self.endpoint = ENV['NIFCLOUD_API_ENDPOINT']
+      self.secret_key = ENV['NIFCLOUD_API_SECRET_KEY']
+      self.access_key = ENV['NIFCLOUD_API_ACCESS_KEY']
       self.debug = nil
       self.user_agent = DEFAULT_USER_AGENT
     end

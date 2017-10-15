@@ -1,4 +1,4 @@
-module Niftycloud
+module Nifcloud
   module Error
     # Custom error class for rescuing from all errors.
     class Error < StandardError;
@@ -41,7 +41,7 @@ module Niftycloud
       # Handle error response message in case of nested hashes
       def handle_message(message)
         case message
-          #when Niftycloud::ObjectifiedHash
+          #when Nifcloud::ObjectifiedHash
           #  message.to_h.sort.map do |key, val|
           #    "'#{key}' #{(val.is_a?(Hash) ? val.sort.map { |k, v| "(#{k}: #{v.join(' ')})" } : val).join(' ')}"
           #  end.join(', ')

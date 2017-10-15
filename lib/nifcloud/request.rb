@@ -1,7 +1,7 @@
 require 'httpclient'
 require 'xmlsimple'
 
-module Niftycloud
+module Nifcloud
   class Request
     attr_accessor :secret_key, :access_key, :endpoint
 
