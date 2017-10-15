@@ -13,3 +13,9 @@ gem install niftycloud
 $ export NIFTYCLOUD_ACCESS_KEY_ID=XXXXXXXXXXXXXXXXXX
 $ export NIFTYCLOUD_SECRET_ACCESS_KEY=YYYYYYYYYYYYYYYYYYY
 ```
+
+## For Developer
+```
+$ bundle install --path=vendor/bundle
+$ bundle exec rake
+```
