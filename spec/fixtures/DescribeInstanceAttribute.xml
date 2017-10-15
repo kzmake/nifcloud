@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<DescribeInstanceAttributeResponse xmlns="https://cp.cloud.nifty.com/api/2.4/">
+  <requestId>2b1d91dc-d0d4-49ec-8bae-7a767bcb955c</requestId>
+  <instanceId>test</instanceId>
+  <instanceUniqueId>i-06xhrmv7</instanceUniqueId>
+</DescribeInstanceAttributeResponse>
