@@ -16,29 +16,29 @@ def load_fixture(name)
 end
 
 # GET
-def stub_get(path, action, fixture, status_code=200)
+def stub_get(options={}, status_code=200)
   timestamp = Time.now.strftime("%Y%m%dT%H:%M:%SZ")
-  stub_request(:get, "#{Nifcloud.endpoint}#{path}").
-      with(query: {
-          Action: action,
-          Timestamp: timestamp,
-          AccessKeyId: Nifcloud.access_key,
-          Signature: Nifcloud::Signature.v0(Nifcloud.secret_key, "#{action}#{timestamp}"),
-          SignatureVersion: '0',
-      }).
-      to_return(body: load_fixture(fixture), status: status_code)
+  options.merge!({
+                     Timestamp: timestamp,
+                     AccessKeyId: Nifcloud.access_key,
+                     Signature: Nifcloud::Signature.v0(Nifcloud.secret_key, "#{options[:Action]}#{timestamp}"),
+                     SignatureVersion: '0',
+                 })
+  stub_request(:get, "#{Nifcloud.endpoint}").
+      with(query: options).
+      to_return(body: load_fixture(options[:Action]), status: status_code)
 end
 
-def a_get(path, action)
+def a_get(options={})
   timestamp = Time.now.strftime("%Y%m%dT%H:%M:%SZ")
-  a_request(:get, "#{Nifcloud.endpoint}#{path}").
-      with(query: {
-          Action: action,
-          Timestamp: timestamp,
-          AccessKeyId: Nifcloud.access_key,
-          Signature: Nifcloud::Signature.v0(Nifcloud.secret_key, "#{action}#{timestamp}"),
-          SignatureVersion: '0',
-      })
+  options.merge!({
+                     Timestamp: timestamp,
+                     AccessKeyId: Nifcloud.access_key,
+                     Signature: Nifcloud::Signature.v0(Nifcloud.secret_key, "#{options[:Action]}#{timestamp}"),
+                     SignatureVersion: '0',
+                 })
+  a_request(:get, "#{Nifcloud.endpoint}").
+      with(query: options)
 end
 
 # POST
