@@ -4,15 +4,15 @@ module Nifcloud
 
     include Instances
 
-    def url_encode(s)
-      ERB::Util.url_encode(s)
-    end
-
     def inspect
       inspected = super
 
       if @secret_key
         inspected = inspected.sub! @secret_key, only_show_last_four_chars(@secret_key)
+      end
+
+      if @access_key
+        inspected = inspected.sub! @access_key, only_show_last_four_chars(@access_key)
       end
 
       inspected
