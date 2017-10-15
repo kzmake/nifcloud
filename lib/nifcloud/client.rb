@@ -3,7 +3,6 @@ module Nifcloud
     Dir[File.expand_path('../client/*.rb', __FILE__)].each {|f| require f}
 
     include Instances
-    include Issues
 
     def url_encode(s)
       ERB::Util.url_encode(s)
