@@ -97,12 +97,14 @@ module Nifcloud
     end
 
     def set_access_key(options={})
+      raise Error::MissingCredentials.new("Please provide a access_key for user") unless @access_key
       options[:query].merge!({
                                  AccessKeyId: @access_key,
                              })
     end
 
     def set_signature(options={})
+      raise Error::MissingCredentials.new("Please provide a secret_key for user") unless @secret_key
       key = @secret_key
       data = "#{options[:query][:Action]}#{options[:query][:Timestamp]}"
       options[:query].merge!({
