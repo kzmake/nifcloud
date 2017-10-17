@@ -29,5 +29,10 @@ class Nifcloud::Client
       options[:Action] = 'StartInstances'
       get('/', query: options)
     end
+
+    def StopInstances(options={})
+      options[:Action] = 'StopInstances'
+      get('/', query: options)
+    end
   end
 end
