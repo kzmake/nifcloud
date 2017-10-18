@@ -39,5 +39,10 @@ class Nifcloud::Client
       options[:Action] = 'TerminateInstances'
       get('/', query: options)
     end
+
+    def CopyInstances(options={})
+      options[:Action] = 'CopyInstances'
+      get('/', query: options)
+    end
   end
 end
