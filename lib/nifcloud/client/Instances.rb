@@ -44,5 +44,10 @@ class Nifcloud::Client
       options[:Action] = 'CopyInstances'
       get('/', query: options)
     end
+
+    def CancelCopyInstances(options={})
+      options[:Action] = 'CancelCopyInstances'
+      get('/', query: options)
+    end
   end
 end
