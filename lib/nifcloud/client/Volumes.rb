@@ -14,5 +14,10 @@ class Nifcloud::Client
       options[:Action] = 'DeleteVolume'
       get('/', query: options)
     end
+
+    def DescribeVolumes(options={})
+      options[:Action] = 'DescribeVolumes'
+      get('/', query: options)
+    end
   end
 end
