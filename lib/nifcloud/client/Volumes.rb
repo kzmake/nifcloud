@@ -9,5 +9,10 @@ class Nifcloud::Client
       options[:Action] = 'CreateVolume'
       get('/', query: options)
     end
+
+    def DeleteVolume(options={})
+      options[:Action] = 'DeleteVolume'
+      get('/', query: options)
+    end
   end
 end
