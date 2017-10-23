@@ -4,5 +4,10 @@ class Nifcloud::Client
       options[:Action] = 'AttachVolume'
       get('/', query: options)
     end
+
+    def CreateVolume(options={})
+      options[:Action] = 'CreateVolume'
+      get('/', query: options)
+    end
   end
 end
