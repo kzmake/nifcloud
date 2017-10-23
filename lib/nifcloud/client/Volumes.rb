@@ -1,5 +1,5 @@
 class Nifcloud::Client
-  module Instances
+  module Volumes
     def AttachVolume(options={})
       options[:Action] = 'AttachVolume'
       get('/', query: options)
