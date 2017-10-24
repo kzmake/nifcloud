@@ -24,5 +24,10 @@ class Nifcloud::Client
       options[:Action] = 'DetachVolume'
       get('/', query: options)
     end
+
+    def ModifyVolumeAttribute(options={})
+      options[:Action] = 'ModifyVolumeAttribute'
+      get('/', query: options)
+    end
   end
 end
