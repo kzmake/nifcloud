@@ -19,5 +19,10 @@ class Nifcloud::Client
       options[:Action] = 'DescribeVolumes'
       get('/', query: options)
     end
+
+    def DetachVolume(options={})
+      options[:Action] = 'DetachVolume'
+      get('/', query: options)
+    end
   end
 end
