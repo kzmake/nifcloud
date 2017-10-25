@@ -4,5 +4,10 @@ class Nifcloud::Client
       options[:Action] = 'DescribeImages'
       get('/', query: options)
     end
+
+    def CreateImage(options={})
+      options[:Action] = 'CreateImage'
+      get('/', query: options)
+    end
   end
 end
