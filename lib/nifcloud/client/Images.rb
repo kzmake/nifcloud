@@ -9,5 +9,10 @@ class Nifcloud::Client
       options[:Action] = 'CreateImage'
       get('/', query: options)
     end
+
+    def DeleteImage(options={})
+      options[:Action] = 'DeleteImage'
+      get('/', query: options)
+    end
   end
 end
