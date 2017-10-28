@@ -14,5 +14,10 @@ class Nifcloud::Client
       options[:Action] = 'DeleteImage'
       get('/', query: options)
     end
+
+    def ModifyImageAttribute(options={})
+      options[:Action] = 'ModifyImageAttribute'
+      get('/', query: options)
+    end
   end
 end
