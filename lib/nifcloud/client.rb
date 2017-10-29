@@ -5,6 +5,7 @@ module Nifcloud
     include Instances
     include Volumes
     include Images
+    include Keys
 
     def inspect
       inspected = super
