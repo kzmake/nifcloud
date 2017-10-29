@@ -19,5 +19,10 @@ class Nifcloud::Client
       options[:Action] = 'ModifyImageAttribute'
       get('/', query: options)
     end
+
+    def NiftyAssociateImage(options={})
+      options[:Action] = 'NiftyAssociateImage'
+      get('/', query: options)
+    end
   end
 end
