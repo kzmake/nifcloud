@@ -4,5 +4,10 @@ class Nifcloud::Client
       options[:Action] = 'CreateKeyPair'
       get('/', query: options)
     end
+
+    def DeleteKeyPair(options={})
+      options[:Action] = 'DeleteKeyPair'
+      get('/', query: options)
+    end
   end
 end
