@@ -14,5 +14,10 @@ class Nifcloud::Client
       options[:Action] = 'DescribeKeyPairs'
       get('/', query: options)
     end
+
+    def NiftyModifyKeyPairAttribute(options={})
+      options[:Action] = 'NiftyModifyKeyPairAttribute'
+      get('/', query: options)
+    end
   end
 end
