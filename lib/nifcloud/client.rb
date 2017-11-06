@@ -6,6 +6,7 @@ module Nifcloud
     include Volumes
     include Images
     include Keys
+    include LoadBalancers
 
     def inspect
       inspected = super
