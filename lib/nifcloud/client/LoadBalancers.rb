@@ -4,5 +4,10 @@ class Nifcloud::Client
       options[:Action] = 'ConfigureHealthCheck'
       get('/', query: options)
     end
+
+    def CreateLoadBalancer(options={})
+      options[:Action] = 'CreateLoadBalancer'
+      get('/', query: options)
+    end
   end
 end
