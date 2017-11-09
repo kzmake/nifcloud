@@ -14,5 +14,10 @@ class Nifcloud::Client
       options[:Action] = 'DeleteLoadBalancer'
       get('/', query: options)
     end
+
+    def DeregisterInstancesFromLoadBalancer(options={})
+      options[:Action] = 'DeregisterInstancesFromLoadBalancer'
+      get('/', query: options)
+    end
   end
 end
