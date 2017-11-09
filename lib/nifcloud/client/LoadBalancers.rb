@@ -9,5 +9,10 @@ class Nifcloud::Client
       options[:Action] = 'CreateLoadBalancer'
       get('/', query: options)
     end
+
+    def DeleteLoadBalancer(options={})
+      options[:Action] = 'DeleteLoadBalancer'
+      get('/', query: options)
+    end
   end
 end
