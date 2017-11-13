@@ -29,5 +29,10 @@ class Nifcloud::Client
       options[:Action] = 'DescribeLoadBalancers'
       get('/', query: options)
     end
+
+    def RegisterInstancesWithLoadBalancer(options={})
+      options[:Action] = 'RegisterInstancesWithLoadBalancer'
+      get('/', query: options)
+    end
   end
 end
