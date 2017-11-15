@@ -39,5 +39,10 @@ class Nifcloud::Client
       options[:Action] = 'RegisterPortWithLoadBalancer'
       get('/', query: options)
     end
+
+    def SetFilterForLoadBalancer(options={})
+      options[:Action] = 'SetFilterForLoadBalancer'
+      get('/', query: options)
+    end
   end
 end
