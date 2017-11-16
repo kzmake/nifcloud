@@ -49,5 +49,10 @@ class Nifcloud::Client
       options[:Action] = 'UpdateLoadBalancer'
       get('/', query: options)
     end
+
+    def UpdateLoadBalancerOption(options={})
+      options[:Action] = 'UpdateLoadBalancerOption'
+      get('/', query: options)
+    end
   end
 end
