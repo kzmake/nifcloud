@@ -59,9 +59,14 @@ class Nifcloud::Client
       options[:Action] = 'SetLoadBalancerListenerSSLCertificate'
       get('/', query: options)
     end
-    
+
     def UnsetLoadBalancerListenerSSLCertificate(options={})
       options[:Action] = 'UnsetLoadBalancerListenerSSLCertificate'
+      get('/', query: options)
+    end
+
+    def ClearLoadBalancerSession(options={})
+      options[:Action] = 'ClearLoadBalancerSession'
       get('/', query: options)
     end
   end
