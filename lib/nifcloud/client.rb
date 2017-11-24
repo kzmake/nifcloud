@@ -7,6 +7,7 @@ module Nifcloud
     include Images
     include Keys
     include LoadBalancers
+    include ElasticLoadBalancers
 
     def inspect
       inspected = super
